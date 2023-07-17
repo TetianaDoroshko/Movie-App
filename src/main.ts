@@ -3,4 +3,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles/styles.css';
 
-// TODO render your app here
+import { MoviesService } from './ts/MovieService';
+
+import { domEl } from './ts/helpers/render/get-dom-elements';
+
+const start = (): void => {
+    const movieService = new MoviesService();
+
+    movieService.getMovies();
+
+    domEl.popularBtn.addEventListener('click', () => {
+        movieService.getMovies('popular');
+    });
+    domEl.upcomingBtn.addEventListener('click', () => {
+        movieService.getMovies('upcoming');
+    });
+    domEl.topRatedBtn.addEventListener('click', () => {
+        movieService.getMovies('top_rated');
+    });
+    domEl.loadMoreBtn.addEventListener('click', () => {
+        movieService.loadMore();
+    });
+    domEl.searchEl.addEventListener('change', () => {
+        // const name = document.getElementById('random-movie-name');
+        // if (name) name.innerText = domEl.searchEl.value;
+        movieService.getMoviesByName(domEl.searchEl.value);
+    });
+};
+start();
