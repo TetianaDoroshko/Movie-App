@@ -28,8 +28,9 @@ const start = (): void => {
         movieService.loadMore();
     });
     domEl.searchEl.addEventListener('change', () => {
-        // const name = document.getElementById('random-movie-name');
-        // if (name) name.innerText = domEl.searchEl.value;
+        movieService.getMoviesByName(domEl.searchEl.value);
+    });
+    domEl.submitBtn.addEventListener('click', () => {
         movieService.getMoviesByName(domEl.searchEl.value);
     });
 };

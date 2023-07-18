@@ -7,4 +7,5 @@ export const domEl = {
     loadMoreBtn: document.getElementById('load-more') as HTMLElement,
     filmContainerEl: document.getElementById('film-container') as HTMLElement,
     searchEl: document.getElementById('search') as HTMLInputElement,
+    submitBtn: document.getElementById('submit') as HTMLElement,
 };
