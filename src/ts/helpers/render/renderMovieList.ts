@@ -1,8 +1,10 @@
 import { MovieType } from '../../constants/types';
-import { createMarkupMovie } from './createMarkupMovie';
+import { createElementMovie } from './createElementMovie';
 import { domEl } from './get-dom-elements';
 
 export const rednerMovieList = (movieList: MovieType[]): void => {
-    const markup = movieList.map((movie) => createMarkupMovie(movie)).join('');
-    domEl.filmContainerEl.insertAdjacentHTML('beforeend', markup);
+    const movieCards: string[] = movieList.map((movie) => createElementMovie(movie));
+
+    domEl.filmContainerEl.append(...movieCards);
+    // domEl.filmContainerEl.get
 };

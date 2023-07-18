@@ -8,4 +8,5 @@ export const domEl = {
     filmContainerEl: document.getElementById('film-container') as HTMLElement,
     searchEl: document.getElementById('search') as HTMLInputElement,
     submitBtn: document.getElementById('submit') as HTMLElement,
+    favoriteContEl: document.getElementById('favorite-movies') as HTMLElement,
 };
