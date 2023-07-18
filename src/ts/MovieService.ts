@@ -4,11 +4,11 @@ import { rednerMovieList } from './helpers/render/renderMovieList';
 import { clearLoader, renderLoader } from './helpers/render/renderLoader';
 import { FetchService } from './FetchService';
 import { QUERY_KEY } from './constants/query-keys';
+import { notification } from './helpers/notification';
+import { renderRandom } from './helpers/render/renderRandom';
 
 class MoviesService {
     private mode: MovieModeType = 'popular';
-
-    // private movieList: MovieType[] = [];
 
     private page = 1;
 
@@ -22,15 +22,14 @@ class MoviesService {
         }
         this.page = 1;
         this.search = '';
-        // this.movieList = [];
         this.mode = movieMode ?? this.mode;
         renderLoader();
         const response: ResponseType = await this.fetchService.getMovieCollection(this.mode, {
             [QUERY_KEY.PAGE]: String(this.page),
         });
         const movieList = response ? mapResponse(response.results) : [];
-        // this.movieList = movieList;
         clearLoader();
+        renderRandom(movieList);
         rednerMovieList(movieList);
     }
 
@@ -47,7 +46,6 @@ class MoviesService {
                 [QUERY_KEY.PAGE]: String(this.page),
             });
         }
-
         const movieList = mapResponse(response.results);
         rednerMovieList(movieList);
     }
@@ -63,6 +61,11 @@ class MoviesService {
             [QUERY_KEY.PAGE]: String(this.page),
             [QUERY_KEY.QUERY]: this.search,
         });
+        if (response.results.length < 1 && !response.results) {
+            notification('There is not result for the search');
+            clearLoader();
+            return;
+        }
         const movieList = response ? mapResponse(response.results) : [];
         clearLoader();
         rednerMovieList(movieList);
