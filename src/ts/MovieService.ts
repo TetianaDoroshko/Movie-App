@@ -6,6 +6,7 @@ import { FetchService } from './FetchService';
 import { QUERY_KEY } from './constants/query-keys';
 import { notification } from './helpers/notification';
 import { renderRandom } from './helpers/render/renderRandom';
+import { controlListEnd, enableLoadBtn } from './helpers/controlListEnd';
 
 class MoviesService {
     private mode: MovieModeType = 'popular';
@@ -17,6 +18,7 @@ class MoviesService {
     private fetchService = new FetchService();
 
     async getMovies(movieMode?: MovieModeType): Promise<void> {
+        enableLoadBtn();
         if (movieMode === this.mode) {
             return;
         }
@@ -46,6 +48,7 @@ class MoviesService {
                 [QUERY_KEY.PAGE]: String(this.page),
             });
         }
+        controlListEnd(response);
         const movieList = mapResponse(response.results);
         rednerMovieList(movieList);
     }
@@ -54,6 +57,7 @@ class MoviesService {
         if (!value.trim()) {
             return;
         }
+        enableLoadBtn();
         this.page = 1;
         this.search = value;
         renderLoader();
@@ -61,7 +65,9 @@ class MoviesService {
             [QUERY_KEY.PAGE]: String(this.page),
             [QUERY_KEY.QUERY]: this.search,
         });
-        if (response.results.length < 1 && !response.results) {
+        controlListEnd(response);
+
+        if (response.results.length < 1) {
             notification('There is not result for the search');
             clearLoader();
             return;

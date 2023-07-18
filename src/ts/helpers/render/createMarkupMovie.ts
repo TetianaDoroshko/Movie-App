@@ -3,7 +3,9 @@ import { POSTR_SIZES } from '../../constants/poster-sizes';
 import { MovieType } from '../../constants/types';
 
 export const createMarkupMovie = (movie: MovieType): string => {
-    const imageUrl: string = API_URL.IMG_URL + POSTR_SIZES.ORIGINAL + movie.poster_path;
+    const imageUrl: string = movie.poster_path
+        ? API_URL.IMG_URL + POSTR_SIZES[500] + movie.poster_path
+        : 'https://plchldr.co/i/500x800?&bg=3d1448&fc=ffffff&text=NO%20PREVIEW';
 
     return `<div class="col-lg-3 col-md-4 col-12 p-2">
                 <div class="card shadow-sm">
