@@ -1,15 +1,14 @@
-import { MovieModeType, MovieType, ResponseType } from './constants/types';
+import { MovieModeType, ResponseType } from './constants/types';
 import { mapResponse } from './helpers/mapResponse';
 import { rednerMovieList } from './helpers/render/renderMovieList';
 import { clearLoader, renderLoader } from './helpers/render/renderLoader';
 import { FetchService } from './FetchService';
 import { QUERY_KEY } from './constants/query-keys';
-// import { IFetchService } from './constants/intrfaces';
 
 class MoviesService {
     private mode: MovieModeType = 'popular';
 
-    private movieList: MovieType[] = [];
+    // private movieList: MovieType[] = [];
 
     private page = 1;
 

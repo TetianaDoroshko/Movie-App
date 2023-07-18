@@ -6,8 +6,11 @@ import './styles/styles.css';
 import { MoviesService } from './ts/MovieService';
 
 import { domEl } from './ts/helpers/render/get-dom-elements';
+import { createNotification } from './ts/helpers/notification';
 
 const start = (): void => {
+    createNotification();
+
     const movieService = new MoviesService();
 
     movieService.getMovies();

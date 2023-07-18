@@ -1,4 +1,5 @@
 export const domEl = {
+    notificationEl: document.getElementById('notification') as HTMLElement,
     popularBtn: document.getElementById('popular') as HTMLInputElement,
     upcomingBtn: document.getElementById('upcoming') as HTMLElement,
     topRatedBtn: document.getElementById('top_rated') as HTMLElement,
