@@ -1,4 +1,4 @@
-import { MovieModeType, ResponseType, SearchQueryType } from './constants/types';
+import { MovieModeType, ResponseMovieType, ResponseType, SearchQueryType } from './constants/types';
 
 import { API_KEY, API_URL } from './constants/api-url';
 import { QUERY_KEY } from './constants/query-keys';
@@ -11,6 +11,18 @@ class FetchService {
             const response = await fetch(url);
             const movies = await response.json();
             return movies;
+        } catch (error) {
+            notification('Connection Failed');
+            return Promise.reject(error);
+        }
+    }
+
+    async getMovieById(movieId: number): Promise<ResponseMovieType> {
+        try {
+            const url = this.createUrl(API_URL.BASE_URL, String(movieId), {});
+            const response = await fetch(url);
+            const movie: ResponseMovieType = await response.json();
+            return movie;
         } catch (error) {
             notification('Connection Failed');
             return Promise.reject(error);

@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles/styles.css';
 
-import { MoviesService } from './ts/MovieService';
+import { movieService } from './ts/MovieService';
 
 import { domEl } from './ts/helpers/render/get-dom-elements';
 import { createNotification } from './ts/helpers/notification';
@@ -11,9 +11,8 @@ import { createNotification } from './ts/helpers/notification';
 const start = (): void => {
     createNotification();
 
-    const movieService = new MoviesService();
-
     movieService.getMovies();
+    movieService.getFavoriteMovies();
 
     domEl.popularBtn.addEventListener('click', () => {
         movieService.getMovies('popular');

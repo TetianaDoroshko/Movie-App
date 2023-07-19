@@ -23,8 +23,6 @@ type ResponseMovieType = {
     [x: string]: string | number | boolean | number[];
 };
 
-// type ResponseMovieType = Record<string, string | number | boolean | number[]>;
-
 type MovieType = {
     backdrop_path: string;
     id: number;
@@ -36,10 +34,10 @@ type MovieType = {
 
 type MovieModeType = 'popular' | 'upcoming' | 'top_rated';
 
-// type QueryKey = 'query' | 'page' | 'api_key';
+type WrapperType = 'favorite' | 'collection';
 
 type SearchQueryType = {
     [x: string]: string;
 };
 
-export type { ResponseType, ResponseMovieType, MovieType, MovieModeType, SearchQueryType };
+export type { ResponseType, ResponseMovieType, MovieType, MovieModeType, SearchQueryType, WrapperType };
