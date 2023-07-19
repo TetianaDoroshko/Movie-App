@@ -1,13 +1,16 @@
-export const addRemoveFavorite = (movieId: number): void => {
+const addRemoveFavorite = (movieId: number, likeSign: SVGSVGElement | null): void => {
     let favoriteList = getFavoriteListFromStorage();
 
     if (!favoriteList) {
         favoriteList = [movieId];
+        likeSign?.setAttribute('fill', 'red');
     } else if (!favoriteList.includes(movieId)) {
         favoriteList.unshift(movieId);
+        likeSign?.setAttribute('fill', 'red');
     } else {
         const index = favoriteList.indexOf(movieId);
         favoriteList.splice(index, 1);
+        likeSign?.setAttribute('fill', 'transparent');
     }
     saveFavoriteListToStorage(favoriteList);
 };
@@ -20,3 +23,5 @@ function getFavoriteListFromStorage(): number[] | null {
 function saveFavoriteListToStorage(favoriteList: number[]): void {
     localStorage.setItem('favoriteMovies', JSON.stringify(favoriteList));
 }
+
+export { addRemoveFavorite, getFavoriteListFromStorage, saveFavoriteListToStorage };

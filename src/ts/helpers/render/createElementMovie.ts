@@ -1,25 +1,24 @@
 import { API_URL } from '../../constants/api-url';
 import { POSTR_SIZES } from '../../constants/poster-sizes';
 import { MovieType } from '../../constants/types';
-import { addRemoveFavorite } from '../saveFavorite';
+import { addRemoveFavorite } from '../addRemoveFavorite';
 
-export const createElementMovie = (movie: MovieType): HTMLDivElement => {
+export const createElementMovie = (movie: MovieType, favoriteList: number[] | null): HTMLDivElement => {
     const imageUrl: string = movie.poster_path
         ? API_URL.IMG_URL + POSTR_SIZES[500] + movie.poster_path
         : 'https://plchldr.co/i/500x800?&bg=3d1448&fc=ffffff&text=NO%20PREVIEW';
 
+    const isFvorite = favoriteList ? favoriteList.includes(movie.id) : false;
+
     const movieCard = document.createElement('div');
-    movieCard.classList.add('col-lg-3');
-    movieCard.classList.add('col-md-4');
-    movieCard.classList.add('col-12');
-    movieCard.classList.add('p-2');
+    movieCard.classList.add('col-lg-3', 'col-md-4', 'col-12', 'p-2');
     // movieCard.setAttribute('data-id', `${movie.id}`);
     movieCard.innerHTML = `<div class="card shadow-sm">
                                 <img src="${imageUrl}" />
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     stroke="red"
-                                    fill="transparent"
+                                    fill=${isFvorite ? 'red' : 'transparent'}
                                     width="50"
                                     height="50"
                                     class="bi bi-heart-fill position-absolute p-2"
@@ -37,14 +36,14 @@ export const createElementMovie = (movie: MovieType): HTMLDivElement => {
                                     </div>
                                     </div>`;
 
+    movieCard.addEventListener('click', onCardMovieHandler);
+
     const likeSign = movieCard.querySelector('svg');
     const likeSignInner = movieCard.querySelector('path');
 
-    movieCard.addEventListener('click', onCardMovieHandler);
-
     function onCardMovieHandler(event: Event) {
         if (event.target === likeSign || event.target === likeSignInner) {
-            addRemoveFavorite(movie.id);
+            addRemoveFavorite(movie.id, likeSign);
         }
     }
 
