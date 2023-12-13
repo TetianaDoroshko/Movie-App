@@ -1,7 +1,6 @@
 import { API_URL } from '../../constants/api-url';
 import { POSTR_SIZES } from '../../constants/poster-sizes';
 import { MovieType, WrapperType } from '../../constants/types';
-// import { onCardMovieHandler } from '../onCardMovieHandler';
 
 export const createElementMovie = (movie: MovieType, favoriteList: number[], wrapper: WrapperType): HTMLDivElement => {
     const imageUrl: string = movie.poster_path
@@ -13,7 +12,7 @@ export const createElementMovie = (movie: MovieType, favoriteList: number[], wra
     const card = document.createElement('div');
     card.classList.add('card', 'shadow-sm');
 
-    card.innerHTML = `  <img src="${imageUrl}" />
+    card.innerHTML = `  <img  class="card-image" src="${imageUrl}" />
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             stroke="red"
@@ -43,8 +42,6 @@ export const createElementMovie = (movie: MovieType, favoriteList: number[], wra
     }
 
     cardWrapper.append(card);
-
-    // cardWrapper.addEventListener('click', (event) => onCardMovieHandler(event, movie));
 
     return cardWrapper;
 };

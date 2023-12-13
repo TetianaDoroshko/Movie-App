@@ -4,3 +4,12 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
 }
+.card {
+    height: 100%;
+}
+.card-image {
+    flex-grow: 1;
+}
+.card-body {
+    flex: 0 1 auto;
+}
